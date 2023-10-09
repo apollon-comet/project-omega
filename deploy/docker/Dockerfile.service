@@ -1,0 +1,16 @@
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
+
+# RUN ["apt-get", "update"]
+# RUN ["apt-get", "install", "-y", "vim"]
+# RUN ["apt-get", "install", "curl", "-y"]
+
+RUN echo "alias ll='ls -al --color'" >> ~/.bashrc
+
+COPY ./built_server_app/ app/
+COPY aspnetapp.pfx app/
+
+WORKDIR /app
+
+EXPOSE 443
+
+ENTRYPOINT ["dotnet", "Omega.dll"]

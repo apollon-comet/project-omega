@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  omega_mssql:
+    image: 'mcr.microsoft.com/mssql/server'
+    container_name: omega_mssql
+    environment:
+      SA_PASSWORD: '${OMEGA_MSSQL_PASSWORD}'
+      ACCEPT_EULA: 'Y'
+    ports:
+      - '${OMEGA_MSSQL_HOST_PORT}:${OMEGA_MSSQL_CONTAINER_PORT}'
+    volumes:
+      - ./mssql/data/:/var/opt/mssql/data/
+      - ./mssql/log/:/var/opt/mssql/log/
+    networks:
+      - omega-net
+  omega_seq:
+    image: 'datalust/seq'
+    container_name: omega_seq
+    environment:
+      ACCEPT_EULA: 'Y'
+    volumes:
+      - ./seq/data:/data
+    ports:
+      - '${OMEGA_SEQ_UI_PORT}:80'
+      - '${OMEGA_SEQ_INGESTION_PORT}:5341'
+    networks:
+      - omega-net
+
+networks:
+  omega-net:
+    name: omega-net
+    driver: bridge

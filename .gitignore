@@ -1,0 +1,13 @@
+.idea
+project-omega.sln.DotSettings.user
+.vs
+**/node_modules
+**/obj
+**/bin
+**/.env
+.env.server
+.env.client
+deploy/docker/built_server_app
+deploy/docker/built_client_app
+deploy/docker/seq/data
+src/libs/Omega.DbMigrator/publish
